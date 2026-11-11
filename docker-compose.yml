@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: artefactcanvas-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: artefactcanvas
+      POSTGRES_PASSWORD: artefactcanvas
+      POSTGRES_DB: artefactcanvas
+    ports:
+      - "5435:5432"
+    volumes:
+      - artefactcanvas_pgdata:/var/lib/postgresql/data
+
+volumes:
+  artefactcanvas_pgdata:

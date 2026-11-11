@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id        String    @id @default(cuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  companyId    String
+  company      Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name         String
+  artefato     String   @default("")
+  iniciativa   String   @default("")
+  aposta       String   @default("")
+  lastOpenedAt DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  tasks        Task[]
+
+  @@index([companyId])
+  @@index([lastOpenedAt])
+}
+
+enum TaskStatus {
+  IN_DEVELOPMENT
+  NEXT
+  DONE
+}
+
+model Task {
+  id           String     @id @default(cuid())
+  projectId    String
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title        String
+  instructions String     @default("")
+  status       TaskStatus @default(NEXT)
+  sortOrder    Int        @default(0)
+  completedAt  DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([projectId, status, sortOrder])
+  @@index([projectId, completedAt])
+}
