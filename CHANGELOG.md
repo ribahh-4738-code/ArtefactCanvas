@@ -4,6 +4,13 @@ Todas as mudanças relevantes deste projeto são documentadas aqui.
 
 ## [Unreleased]
 
+## [0.5.0] — 2026-11-12
+
+### Adicionado
+
+- Sync de tasks **Done** com Time To Think (timeline **AC: [projeto]**) via `TIME_TO_THINK_API_URL`; backfill no boot + `POST /api/integrations/time-to-think/sync-done`; remove/atualiza ao sair de Done ou renomear projeto
+- Plano em [`MDs/time_to_think_done_sync.plan.md`](MDs/time_to_think_done_sync.plan.md)
+
 ## [0.4.0] — 2026-11-12
 
 ### Adicionado
@@ -44,7 +51,8 @@ Todas as mudanças relevantes deste projeto são documentadas aqui.
 - Tipografia fluida (`clamp`) e identidade visual glass (`--ac-*`, Manrope)
 - Seed White Grid (`___ Instituto`)
 
-[Unreleased]: https://github.com/ribahh-4738-code/ArtefactCanvas/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/ribahh-4738-code/ArtefactCanvas/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/ribahh-4738-code/ArtefactCanvas/releases/tag/v0.5.0
 [0.4.0]: https://github.com/ribahh-4738-code/ArtefactCanvas/releases/tag/v0.4.0
 [0.3.0]: https://github.com/ribahh-4738-code/ArtefactCanvas/releases/tag/v0.3.0
 [0.2.0]: https://github.com/ribahh-4738-code/ArtefactCanvas/releases/tag/v0.2.0

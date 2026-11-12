@@ -1,6 +1,10 @@
 import { TaskStatus } from "@prisma/client";
 import { prisma } from "../db/prisma.js";
 import { httpError } from "../utils/httpError.js";
+import {
+  pushTaskRecordToTimeToThink,
+  removeDoneTaskFromTimeToThink,
+} from "./timeToThinkIntegration.js";
 
 function startOfDay(date: Date): Date {
   const d = new Date(date);
@@ -89,7 +93,7 @@ export async function createTask(input: {
       ? 0
       : await nextSortOrder(input.projectId, status);
 
-  return prisma.task.create({
+  const created = await prisma.task.create({
     data: {
       projectId: input.projectId,
       title,
@@ -99,6 +103,8 @@ export async function createTask(input: {
       completedAt,
     },
   });
+  void pushTaskRecordToTimeToThink(created);
+  return created;
 }
 
 export async function createTasksBatch(input: {
@@ -130,6 +136,7 @@ export async function createTasksBatch(input: {
         }),
       ),
     );
+    for (const task of created) void pushTaskRecordToTimeToThink(task);
     return created;
   }
 
@@ -206,16 +213,27 @@ export async function updateTask(
 
   if (Object.keys(data).length === 0) return task;
 
-  return prisma.task.update({
+  const updated = await prisma.task.update({
     where: { id },
     data,
   });
+
+  if (updated.status === "DONE") {
+    void pushTaskRecordToTimeToThink(updated);
+  } else if (task.status === "DONE") {
+    void removeDoneTaskFromTimeToThink(updated.id);
+  }
+
+  return updated;
 }
 
 export async function deleteTask(id: string) {
   const task = await prisma.task.findUnique({ where: { id } });
   if (!task) throw httpError("Tarefa não encontrada", 404);
   await prisma.task.delete({ where: { id } });
+  if (task.status === "DONE") {
+    void removeDoneTaskFromTimeToThink(task.id);
+  }
 }
 
 /** Move a NEXT task up/down. Up from index 0 promotes to IN_DEVELOPMENT. */

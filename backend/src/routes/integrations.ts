@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
 import { createWhiteGridNextTaskFromJobTitle } from "../services/integrationService.js";
+import { syncDoneTasksToTimeToThink } from "../services/timeToThinkIntegration.js";
 import { statusOf } from "../utils/httpError.js";
 
 export const integrationsRouter = Router();
@@ -28,3 +29,10 @@ integrationsRouter.post("/white-grid/tasks", async (req, res, next) => {
     next(err);
   }
 });
+
+/** Backfill Done tasks → Time To Think (timeline AC: [projeto]). */
+integrationsRouter.post("/time-to-think/sync-done", async (_req, res) => {
+  const result = await syncDoneTasksToTimeToThink();
+  res.json(result);
+});
+

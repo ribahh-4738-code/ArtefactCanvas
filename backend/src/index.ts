@@ -40,6 +40,13 @@ async function boot() {
   app.listen(env.apiPort, () => {
     console.log(`Artefact Canvas API on :${env.apiPort}`);
   });
+
+  void (async () => {
+    const { syncDoneTasksToTimeToThink } = await import(
+      "./services/timeToThinkIntegration.js"
+    );
+    await syncDoneTasksToTimeToThink();
+  })();
 }
 
 boot().catch((err) => {

@@ -11,4 +11,8 @@ export const env = {
   apiPort: Number(process.env.API_PORT ?? 3089),
   databaseUrl: process.env.DATABASE_URL ?? "",
   dashboardUrl: process.env.DASHBOARD_URL ?? "http://localhost:5175/",
+  /** Time To Think API base (no trailing slash), e.g. http://localhost:3088 */
+  timeToThinkApiUrl: (
+    process.env.TIME_TO_THINK_API_URL ?? "http://localhost:3088"
+  ).replace(/\/$/, ""),
 };

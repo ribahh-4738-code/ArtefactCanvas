@@ -1,5 +1,6 @@
 import { prisma } from "../db/prisma.js";
 import { httpError } from "../utils/httpError.js";
+import { renameProjectTimelineOnTimeToThink } from "./timeToThinkIntegration.js";
 
 export type ProjectPatch = {
   name?: string;
@@ -60,7 +61,7 @@ export async function updateProject(id: string, patch: ProjectPatch) {
   if (patch.iniciativa !== undefined) data.iniciativa = patch.iniciativa;
   if (patch.aposta !== undefined) data.aposta = patch.aposta;
 
-  return prisma.project.update({
+  const updated = await prisma.project.update({
     where: { id },
     data,
     include: {
@@ -68,6 +69,10 @@ export async function updateProject(id: string, patch: ProjectPatch) {
       _count: { select: { tasks: true } },
     },
   });
+  if (data.name) {
+    void renameProjectTimelineOnTimeToThink(updated.id, updated.name);
+  }
+  return updated;
 }
 
 export async function touchProjectOpened(id: string) {

@@ -45,6 +45,7 @@ MDs/         Planos e decisões
 - Rotas API: `/api/health`, `/api/companies`, `/api/projects`, `/api/tasks` (+ `/batch`), `/api/integrations/white-grid/tasks`
 - Sem autenticação no v1 (ferramenta local)
 - Integração: White Grid pode criar task **Next** no projeto **White Grid** (`POST /api/integrations/white-grid/tasks` com `{ "title": "…" }` → título `ver: …`)
+- Integração Time To Think: cada projeto tem timeline **AC: [nome]**; tasks **Done** sincronizam (`TIME_TO_THINK_API_URL`); backfill no boot / `POST /api/integrations/time-to-think/sync-done`
 - Identidade visual alinhada ao Time To Think (glass escuro, Manrope)
 
 ## Dashboard
