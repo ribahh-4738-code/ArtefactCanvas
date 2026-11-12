@@ -4,6 +4,12 @@ Todas as mudanças relevantes deste projeto são documentadas aqui.
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-11-11
+
+### Adicionado
+
+- Barra INSTITUTO via `@instituto/tool-shell` (Artefact Canvas ativo; links para as demais ferramentas)
+
 ## [0.1.0] — 2026-11-11
 
 ### Adicionado
@@ -19,5 +25,6 @@ Todas as mudanças relevantes deste projeto são documentadas aqui.
 - Tipografia fluida (`clamp`) e identidade visual glass (`--ac-*`, Manrope)
 - Seed White Grid (`___ Instituto`)
 
-[Unreleased]: https://github.com/ribahh-4738-code/ArtefactCanvas/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/ribahh-4738-code/ArtefactCanvas/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/ribahh-4738-code/ArtefactCanvas/releases/tag/v0.2.0
 [0.1.0]: https://github.com/ribahh-4738-code/ArtefactCanvas/releases/tag/v0.1.0
