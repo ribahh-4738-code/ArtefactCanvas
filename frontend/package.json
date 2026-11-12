@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@instituto/tool-shell": "file:../../instituto-tool-shell",
     "lucide-react": "^1.72.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

@@ -14,6 +14,7 @@ import {
   updateTask,
 } from "./api";
 import { DoneSection } from "./components/DoneSection";
+import { InstitutoToolNav } from "@instituto/tool-shell";
 import { HeaderBar } from "./components/HeaderBar";
 import { NextSection } from "./components/NextSection";
 import { ProjectMeta } from "./components/ProjectMeta";
@@ -200,9 +201,12 @@ export default function App() {
         }}
       />
       <main className="relative mx-auto max-w-3xl px-6 py-10 sm:px-10">
-        <p className="font-brand mb-6 text-[0.7rem] text-white/40">
-          Artefact Canvas
-        </p>
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <p className="font-brand text-[0.7rem] text-white/40">
+            Artefact Canvas
+          </p>
+          <InstitutoToolNav current="artefact-canvas" />
+        </div>
         <HeaderBar
           company={dashboard.company}
           projectName={dashboard.project.name}
