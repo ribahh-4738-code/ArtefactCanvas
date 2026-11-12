@@ -42,17 +42,17 @@ frontend/    React + TypeScript + Vite + Tailwind
 MDs/         Planos e decisões
 ```
 
-- Rotas API: `/api/health`, `/api/companies`, `/api/projects`, `/api/tasks` (+ `/batch`)
+- Rotas API: `/api/health`, `/api/companies`, `/api/projects`, `/api/tasks` (+ `/batch`), `/api/integrations/white-grid/tasks`
 - Sem autenticação no v1 (ferramenta local)
+- Integração: White Grid pode criar task **Next** no projeto **White Grid** (`POST /api/integrations/white-grid/tasks` com `{ "title": "…" }` → título `ver: …`)
 - Identidade visual alinhada ao Time To Think (glass escuro, Manrope)
 
 ## Dashboard
 
 - Abre sempre no último projeto aberto (`Project.lastOpenedAt`)
-- Clique no nome do projeto → lista projetos da empresa; `+` à direita cria projeto
-- Clique no nome da empresa → lista empresas; `+` à esquerda cria empresa
-- Metadados **Artefato / Iniciativa / Aposta** (edit in place com duplo clique)
-- **Today**: única task em destaque (`IN_DEVELOPMENT`) com Instructions abertas; `+` promove nova e demove a atual para Next
+- Nome do projeto à esquerda sob **Artefact Canvas** (duplo clique renomeia); ▾ e `+` à direita (▾ troca/cria projetos; `+` cria tarefa em **Today**)
+- Content começa em metadados **Artefato / Iniciativa / Aposta** (edit in place com duplo clique)
+- **Today**: única task em destaque (`IN_DEVELOPMENT`) com Instructions abertas; nova via `+` do chrome promove e demove a atual para Next
 - **Next**: fila com ↑/↓ (↑ no topo promove); `+` textarea em lote (uma task por linha)
 - **Done**: agrupado por data; `+` textarea em lote; campo “Data anterior” para datas sem grupo; desmarcar volta para Next
 - Instructions por task; ícone de documento em Next/Done quando há texto

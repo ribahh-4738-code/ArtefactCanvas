@@ -3,6 +3,7 @@ import express from "express";
 import { env } from "./config/env.js";
 import { companiesRouter } from "./routes/companies.js";
 import { healthRouter } from "./routes/health.js";
+import { integrationsRouter } from "./routes/integrations.js";
 import { projectsRouter } from "./routes/projects.js";
 import { tasksRouter } from "./routes/tasks.js";
 import { ensureSeedData } from "./scripts/seed.js";
@@ -16,6 +17,7 @@ app.use("/api/health", healthRouter);
 app.use("/api/companies", companiesRouter);
 app.use("/api/projects", projectsRouter);
 app.use("/api/tasks", tasksRouter);
+app.use("/api/integrations", integrationsRouter);
 
 app.use(
   (

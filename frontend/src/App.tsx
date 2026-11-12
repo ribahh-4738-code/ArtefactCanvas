@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  createCompany,
   createProject,
   createTask,
   createTasksBatch,
@@ -8,13 +7,11 @@ import {
   demoteTask,
   fetchDashboard,
   fetchLastOpenedProjectId,
-  listProjects,
   moveTask,
   updateProject,
   updateTask,
 } from "./api";
 import { DoneSection } from "./components/DoneSection";
-import { InstitutoAppChrome } from "@instituto/tool-shell";
 import { HeaderBar } from "./components/HeaderBar";
 import { NextSection } from "./components/NextSection";
 import { ProjectMeta } from "./components/ProjectMeta";
@@ -25,6 +22,7 @@ export default function App() {
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [todayAddNonce, setTodayAddNonce] = useState(0);
 
   const loadProject = useCallback(async (projectId: string) => {
     setError(null);
@@ -61,42 +59,21 @@ export default function App() {
     await loadProject(dashboard.project.id);
   }
 
-  async function handleSelectCompany(companyId: string) {
-    if (!dashboard) return;
-    if (companyId === dashboard.company.id) return;
-    const projects = await listProjects(companyId);
-    if (projects.length === 0) {
-      const name = window.prompt("Nome do primeiro projeto desta empresa:");
-      if (!name?.trim()) return;
-      const project = await createProject(companyId, name.trim());
-      await loadProject(project.id);
-      return;
-    }
-    const first = projects[0] as { id: string };
-    await loadProject(first.id);
-  }
-
   async function handleSelectProject(projectId: string) {
     if (!dashboard || projectId === dashboard.project.id) return;
     await loadProject(projectId);
   }
 
-  async function handleCreateCompany() {
-    const name = window.prompt("Nome da nova empresa:");
-    if (!name?.trim()) return;
-    const company = await createCompany(name.trim());
-    const projectName =
-      window.prompt("Nome do primeiro projeto:")?.trim() || "Novo projeto";
-    const project = await createProject(company.id, projectName);
+  async function handleCreateProject(title: string) {
+    if (!dashboard) return;
+    const project = await createProject(dashboard.company.id, title.trim());
     await loadProject(project.id);
   }
 
-  async function handleCreateProject() {
+  async function handleRenameProject(title: string) {
     if (!dashboard) return;
-    const name = window.prompt("Nome do novo projeto:");
-    if (!name?.trim()) return;
-    const project = await createProject(dashboard.company.id, name.trim());
-    await loadProject(project.id);
+    await updateProject(dashboard.project.id, { name: title.trim() });
+    await refresh();
   }
 
   async function handleMetaSave(
@@ -200,24 +177,20 @@ export default function App() {
             "radial-gradient(ellipse 80% 50% at 20% -10%, rgba(120,140,200,0.22), transparent 55%), radial-gradient(ellipse 60% 40% at 90% 10%, rgba(90,110,160,0.18), transparent 50%)",
         }}
       />
-      <InstitutoAppChrome
-        current="artefact-canvas"
-        productName="Artefact Canvas"
+      <HeaderBar
+        projectName={dashboard.project.name}
+        projects={dashboard.projects}
+        activeProjectId={dashboard.project.id}
+        onSelectProject={(id) => void handleSelectProject(id)}
+        onCreateProject={handleCreateProject}
+        onRenameProject={handleRenameProject}
+        onAddToday={() => setTodayAddNonce((n) => n + 1)}
       />
       <main className="relative mx-auto max-w-3xl px-6 pb-10 pt-6 sm:px-10">
-        <HeaderBar
-          company={dashboard.company}
-          projectName={dashboard.project.name}
-          companies={dashboard.companies}
-          projects={dashboard.projects}
-          onSelectCompany={(id) => void handleSelectCompany(id)}
-          onSelectProject={(id) => void handleSelectProject(id)}
-          onCreateCompany={() => void handleCreateCompany()}
-          onCreateProject={() => void handleCreateProject()}
-        />
         <ProjectMeta project={dashboard.project} onSave={handleMetaSave} />
         <TodaySection
           task={dashboard.tasks.inDevelopment}
+          addRequestNonce={todayAddNonce}
           onAdd={handleAddToday}
           onToggleComplete={handleToggleComplete}
           onDemote={handleDemote}

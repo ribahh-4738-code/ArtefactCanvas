@@ -1,5 +1,5 @@
-import { ArrowDown, Plus } from "lucide-react";
-import { useState } from "react";
+import { ArrowDown } from "lucide-react";
+import { useEffect, useState } from "react";
 import type { Task } from "../types";
 import { DeleteTaskButton } from "./DeleteTaskButton";
 import { EditableTitle } from "./EditableTitle";
@@ -7,6 +7,7 @@ import { TaskInstructions } from "./TaskInstructions";
 
 type Props = {
   task: Task | null;
+  addRequestNonce?: number;
   onAdd: (title: string) => Promise<void>;
   onToggleComplete: (task: Task, completed: boolean) => Promise<void>;
   onDemote: (task: Task) => Promise<void>;
@@ -17,6 +18,7 @@ type Props = {
 
 export function TodaySection({
   task,
+  addRequestNonce = 0,
   onAdd,
   onToggleComplete,
   onDemote,
@@ -26,6 +28,13 @@ export function TodaySection({
 }: Props) {
   const [adding, setAdding] = useState(false);
   const [draft, setDraft] = useState("");
+
+  useEffect(() => {
+    if (addRequestNonce > 0) {
+      setAdding(true);
+      setDraft("");
+    }
+  }, [addRequestNonce]);
 
   async function submitAdd() {
     const title = draft.trim();
@@ -42,14 +51,6 @@ export function TodaySection({
     <section className="mt-10">
       <div className="mb-4 flex items-center gap-2">
         <h2 className="section-title">Today</h2>
-        <button
-          type="button"
-          className="chrome-icon-btn"
-          aria-label="Nova tarefa em destaque"
-          onClick={() => setAdding(true)}
-        >
-          <Plus size={18} strokeWidth={1.75} />
-        </button>
       </div>
 
       {adding && (
