@@ -4,9 +4,12 @@ Todas as mudanças relevantes deste projeto são documentadas aqui.
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-11-11
+
 ### Alterado
 
 - Chrome full-bleed com `InstitutoAppChrome` (produto + INSTITUTO fora do `main` max-w); tipografia com sombra no padrão Time to Think
+- Navegação entre ferramentas na mesma aba (`target="_self"` via tool-shell)
 
 ## [0.2.0] — 2026-11-11
 
@@ -29,6 +32,7 @@ Todas as mudanças relevantes deste projeto são documentadas aqui.
 - Tipografia fluida (`clamp`) e identidade visual glass (`--ac-*`, Manrope)
 - Seed White Grid (`___ Instituto`)
 
-[Unreleased]: https://github.com/ribahh-4738-code/ArtefactCanvas/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/ribahh-4738-code/ArtefactCanvas/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/ribahh-4738-code/ArtefactCanvas/releases/tag/v0.3.0
 [0.2.0]: https://github.com/ribahh-4738-code/ArtefactCanvas/releases/tag/v0.2.0
 [0.1.0]: https://github.com/ribahh-4738-code/ArtefactCanvas/releases/tag/v0.1.0
