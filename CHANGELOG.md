@@ -4,6 +4,10 @@ Todas as mudanças relevantes deste projeto são documentadas aqui.
 
 ## [Unreleased]
 
+### Alterado
+
+- Chrome full-bleed com `InstitutoAppChrome` (produto + INSTITUTO fora do `main` max-w); tipografia com sombra no padrão Time to Think
+
 ## [0.2.0] — 2026-11-11
 
 ### Adicionado

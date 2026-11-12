@@ -104,12 +104,14 @@
     font-weight: 700;
     letter-spacing: 0.28em;
     text-transform: uppercase;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
   }
 
   .font-subtitle {
     font-family: var(--ac-font);
     font-weight: 500;
     letter-spacing: 0.02em;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
   }
 
   .font-display {
@@ -117,6 +119,9 @@
     font-weight: 700;
     letter-spacing: -0.02em;
     font-size: clamp(1.05rem, 0.95rem + 0.55vw, 1.45rem);
+    text-shadow:
+      0 2px 18px rgba(0, 0, 0, 0.45),
+      0 1px 0 rgba(255, 255, 255, 0.12);
   }
 
   .font-body {
@@ -124,6 +129,7 @@
     font-weight: 400;
     letter-spacing: 0.01em;
     line-height: 1.55;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
   }
 
   .meta-label {

@@ -14,7 +14,7 @@ import {
   updateTask,
 } from "./api";
 import { DoneSection } from "./components/DoneSection";
-import { InstitutoToolNav } from "@instituto/tool-shell";
+import { InstitutoAppChrome } from "@instituto/tool-shell";
 import { HeaderBar } from "./components/HeaderBar";
 import { NextSection } from "./components/NextSection";
 import { ProjectMeta } from "./components/ProjectMeta";
@@ -200,13 +200,11 @@ export default function App() {
             "radial-gradient(ellipse 80% 50% at 20% -10%, rgba(120,140,200,0.22), transparent 55%), radial-gradient(ellipse 60% 40% at 90% 10%, rgba(90,110,160,0.18), transparent 50%)",
         }}
       />
-      <main className="relative mx-auto max-w-3xl px-6 py-10 sm:px-10">
-        <div className="mb-6 flex items-start justify-between gap-4">
-          <p className="font-brand text-[0.7rem] text-white/40">
-            Artefact Canvas
-          </p>
-          <InstitutoToolNav current="artefact-canvas" />
-        </div>
+      <InstitutoAppChrome
+        current="artefact-canvas"
+        productName="Artefact Canvas"
+      />
+      <main className="relative mx-auto max-w-3xl px-6 pb-10 pt-6 sm:px-10">
         <HeaderBar
           company={dashboard.company}
           projectName={dashboard.project.name}
